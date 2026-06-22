@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Urban Roots</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-left">
+                <img src="images/logo.png" alt="Urban Roots Logo" class="logo">
+            </div>
+            
+            <div class="navbar-center">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            
+            <div class="navbar-right">
+                <!-- Heart/Wishlist Icon -->
+                <div class="icon-container">
+                    <button class="icon-btn" id="wishlist-btn" title="Wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="dropdown-menu" id="wishlist-dropdown">
+                        <div class="wishlist-items" id="wishlist-items-container">
+                            <!-- Wishlist items will be populated here -->
+                        </div>
+                        <button class="buy-now-btn" onclick="location.href='payment.html'">Buy Now</button>
+                    </div>
+                </div>
+                
+                <!-- Bell/Notifications Icon -->
+                <div class="icon-container">
+                    <button class="icon-btn" id="notifications-btn" title="Notifications">
+                        <i class="far fa-bell"></i>
+                        <span class="notification-badge">5</span>
+                    </button>
+                    <div class="dropdown-menu" id="notifications-dropdown">
+                        <div class="notifications-list" id="notifications-list">
+                            <!-- Latest 5 products will be shown here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile Icon -->
+                <div class="icon-container">
+                    <button class="icon-btn profile-btn" id="profile-btn" title="Profile">
+                        <img src="images/pp.png" alt="Profile" class="profile-pic">
+                    </button>
+                    <div class="dropdown-menu" id="profile-dropdown">
+                        <a href="profile.html" class="dropdown-item">
+                            <i class="fas fa-user"></i> Profile
+                        </a>
+                        <a href="settings.html" class="dropdown-item">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                        <button class="dropdown-item logout-btn" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i> Log Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Shop Section -->
+    <section class="shop-section">
+        <div class="shop-header">
+            <h1>Shop Our Collection</h1>
+            <p>Discover our wide range of premium plants and gardening solutions</p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="filter-container">
+            <h3>Filter by Category:</h3>
+            <div class="filter-buttons" id="filter-buttons">
+                <!-- Filter buttons will be populated here -->
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products-grid" id="shop-products">
+            <!-- Products will be populated here -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Urban Roots</h3>
+                <p>Premium plants and gardening solutions for modern living spaces.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: info@urbanroots.com</p>
+                <p>Phone: +1 (555) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Urban Roots. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/shop.js"></script>
+</body>
+</html>

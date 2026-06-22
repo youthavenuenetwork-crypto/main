@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Urban Roots</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-left">
+                <img src="images/logo.png" alt="Urban Roots Logo" class="logo">
+            </div>
+            
+            <div class="navbar-center">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            
+            <div class="navbar-right">
+                <!-- Heart/Wishlist Icon -->
+                <div class="icon-container">
+                    <button class="icon-btn" id="wishlist-btn" title="Wishlist">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="dropdown-menu" id="wishlist-dropdown">
+                        <div class="wishlist-items" id="wishlist-items-container">
+                            <!-- Wishlist items will be populated here -->
+                        </div>
+                        <button class="buy-now-btn" onclick="location.href='payment.html'">Buy Now</button>
+                    </div>
+                </div>
+                
+                <!-- Bell/Notifications Icon -->
+                <div class="icon-container">
+                    <button class="icon-btn" id="notifications-btn" title="Notifications">
+                        <i class="far fa-bell"></i>
+                        <span class="notification-badge">5</span>
+                    </button>
+                    <div class="dropdown-menu" id="notifications-dropdown">
+                        <div class="notifications-list" id="notifications-list">
+                            <!-- Latest 5 products will be shown here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile Icon -->
+                <div class="icon-container">
+                    <button class="icon-btn profile-btn" id="profile-btn" title="Profile">
+                        <img src="images/pp.png" alt="Profile" class="profile-pic">
+                    </button>
+                    <div class="dropdown-menu" id="profile-dropdown">
+                        <a href="profile.html" class="dropdown-item">
+                            <i class="fas fa-user"></i> Profile
+                        </a>
+                        <a href="settings.html" class="dropdown-item">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                        <button class="dropdown-item logout-btn" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i> Log Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Settings Section -->
+    <section class="settings-section">
+        <div class="settings-container">
+            <h1>Settings</h1>
+            
+            <div class="settings-tabs">
+                <button class="tab-btn active" onclick="switchSettingsTab('account')">Account</button>
+                <button class="tab-btn" onclick="switchSettingsTab('notifications')">Notifications</button>
+                <button class="tab-btn" onclick="switchSettingsTab('security')">Security</button>
+                <button class="tab-btn" onclick="switchSettingsTab('privacy')">Privacy</button>
+            </div>
+            
+            <div class="settings-content">
+                <div id="account-tab" class="settings-pane active">
+                    <h2>Account Settings</h2>
+                    <form onsubmit="updateAccountSettings(event)">
+                        <div class="form-group">
+                            <label for="settings-name">Full Name</label>
+                            <input type="text" id="settings-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="settings-email">Email</label>
+                            <input type="email" id="settings-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="settings-phone">Phone</label>
+                            <input type="tel" id="settings-phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="settings-address">Address</label>
+                            <textarea id="settings-address" required></textarea>
+                        </div>
+                        <button type="submit" class="save-btn">Save Changes</button>
+                    </form>
+                </div>
+                
+                <div id="notifications-tab" class="settings-pane">
+                    <h2>Notification Settings</h2>
+                    <div class="toggle-group">
+                        <div class="toggle-item">
+                            <label>Email Notifications</label>
+                            <input type="checkbox" id="email-notifications" checked>
+                        </div>
+                        <div class="toggle-item">
+                            <label>SMS Notifications</label>
+                            <input type="checkbox" id="sms-notifications">
+                        </div>
+                        <div class="toggle-item">
+                            <label>Product Updates</label>
+                            <input type="checkbox" id="product-updates" checked>
+                        </div>
+                        <div class="toggle-item">
+                            <label>Blog Updates</label>
+                            <input type="checkbox" id="blog-updates" checked>
+                        </div>
+                        <div class="toggle-item">
+                            <label>Promotional Emails</label>
+                            <input type="checkbox" id="promo-emails">
+                        </div>
+                    </div>
+                    <button class="save-btn" onclick="saveNotificationSettings()">Save Preferences</button>
+                </div>
+                
+                <div id="security-tab" class="settings-pane">
+                    <h2>Security Settings</h2>
+                    <form onsubmit="updatePassword(event)">
+                        <div class="form-group">
+                            <label for="current-password">Current Password</label>
+                            <input type="password" id="current-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="password" id="new-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password</label>
+                            <input type="password" id="confirm-password" required>
+                        </div>
+                        <button type="submit" class="save-btn">Update Password</button>
+                    </form>
+                </div>
+                
+                <div id="privacy-tab" class="settings-pane">
+                    <h2>Privacy Settings</h2>
+                    <div class="toggle-group">
+                        <div class="toggle-item">
+                            <label>Make Profile Public</label>
+                            <input type="checkbox" id="public-profile">
+                        </div>
+                        <div class="toggle-item">
+                            <label>Show Purchase History</label>
+                            <input type="checkbox" id="show-history" checked>
+                        </div>
+                        <div class="toggle-item">
+                            <label>Allow Data Analytics</label>
+                            <input type="checkbox" id="analytics">
+                        </div>
+                    </div>
+                    <button class="save-btn" onclick="savePrivacySettings()">Save Privacy Settings</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Urban Roots</h3>
+                <p>Premium plants and gardening solutions for modern living spaces.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: info@urbanroots.com</p>
+                <p>Phone: +1 (555) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Urban Roots. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>

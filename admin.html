@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Urban Roots</title>
+    <link rel="stylesheet" href="css/admin-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <img src="images/logo.png" alt="Urban Roots Logo" class="sidebar-logo">
+                <h2>Admin Panel</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" onclick="switchAdminTab('dashboard')">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </a>
+                <a href="#products" class="nav-item" onclick="switchAdminTab('products')">
+                    <i class="fas fa-leaf"></i> Products
+                </a>
+                <a href="#blogs" class="nav-item" onclick="switchAdminTab('blogs')">
+                    <i class="fas fa-blog"></i> Blog Posts
+                </a>
+                <a href="#ads" class="nav-item" onclick="switchAdminTab('ads')">
+                    <i class="fas fa-ad"></i> Ads
+                </a>
+                <a href="#videos" class="nav-item" onclick="switchAdminTab('videos')">
+                    <i class="fas fa-video"></i> Videos
+                </a>
+                <a href="#users" class="nav-item" onclick="switchAdminTab('users')">
+                    <i class="fas fa-users"></i> Users
+                </a>
+                <a href="#settings" class="nav-item" onclick="switchAdminTab('settings')">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+                <a href="#" class="nav-item logout" onclick="adminLogout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="admin-tab active">
+                <div class="admin-header">
+                    <h1>Dashboard</h1>
+                    <p id="admin-welcome">Welcome, Admin!</p>
+                </div>
+                
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Total Sales</h3>
+                        <p id="total-sales">0 LKR</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-leaf"></i>
+                        <h3>Total Products</h3>
+                        <p id="total-products">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Total Users</h3>
+                        <p id="total-users">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-blog"></i>
+                        <h3>Total Blog Posts</h3>
+                        <p id="total-blogs">0</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Products Tab -->
+            <div id="products" class="admin-tab">
+                <div class="admin-header">
+                    <h1>Product Management</h1>
+                    <button class="add-btn" onclick="showProductForm()">+ Add New Product</button>
+                </div>
+                
+                <div id="product-form" class="form-section" style="display: none;">
+                    <h2>Add/Edit Product</h2>
+                    <form onsubmit="saveProduct(event)">
+                        <div class="form-group">
+                            <label for="product-name">Product Name</label>
+                            <input type="text" id="product-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-label">Category/Label</label>
+                            <input type="text" id="product-label" placeholder="e.g., Indoor, Flowering" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-price">Price (LKR)</label>
+                            <input type="number" id="product-price" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-rental-price">Rental Price (3 months/month)</label>
+                            <input type="number" id="product-rental-price" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-rating">Rating</label>
+                            <input type="number" id="product-rating" min="0" max="5" step="0.1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-reviews">Review Count</label>
+                            <input type="number" id="product-reviews" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-sold">Sold Count</label>
+                            <input type="number" id="product-sold" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-description">Description</label>
+                            <textarea id="product-description" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-image">Product Image URL</label>
+                            <input type="text" id="product-image" placeholder="https://example.com/image.jpg" required>
+                        </div>
+                        <button type="submit" class="save-btn">Save Product</button>
+                        <button type="button" class="cancel-btn" onclick="hideProductForm()">Cancel</button>
+                    </form>
+                </div>
+                
+                <div class="table-section">
+                    <table class="admin-table" id="products-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Rating</th>
+                                <th>Sold</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-tbody">
+                            <!-- Products will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Blog Posts Tab -->
+            <div id="blogs" class="admin-tab">
+                <div class="admin-header">
+                    <h1>Blog Post Management</h1>
+                    <button class="add-btn" onclick="showBlogForm()">+ Add New Blog</button>
+                </div>
+                
+                <div id="blog-form" class="form-section" style="display: none;">
+                    <h2>Add/Edit Blog Post</h2>
+                    <form onsubmit="saveBlog(event)">
+                        <div class="form-group">
+                            <label for="blog-title">Title</label>
+                            <input type="text" id="blog-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="blog-topic">Topic/Category</label>
+                            <input type="text" id="blog-topic" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="blog-content">Content</label>
+                            <textarea id="blog-content" rows="6" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="blog-image">Cover Image URL</label>
+                            <input type="text" id="blog-image" placeholder="https://example.com/image.jpg" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="blog-author">Author</label>
+                            <input type="text" id="blog-author" required>
+                        </div>
+                        <button type="submit" class="save-btn">Save Blog Post</button>
+                        <button type="button" class="cancel-btn" onclick="hideBlogForm()">Cancel</button>
+                    </form>
+                </div>
+                
+                <div class="table-section">
+                    <table class="admin-table" id="blogs-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Title</th>
+                                <th>Topic</th>
+                                <th>Author</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="blogs-tbody">
+                            <!-- Blog posts will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Ads Tab -->
+            <div id="ads" class="admin-tab">
+                <div class="admin-header">
+                    <h1>Ad Management</h1>
+                    <button class="add-btn" onclick="showAdForm()">+ Add New Ad</button>
+                </div>
+                
+                <div id="ad-form" class="form-section" style="display: none;">
+                    <h2>Add/Edit Ad</h2>
+                    <form onsubmit="saveAd(event)">
+                        <div class="form-group">
+                            <label for="ad-title">Ad Title</label>
+                            <input type="text" id="ad-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-description">Ad Description</label>
+                            <textarea id="ad-description" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-image">Ad Image URL</label>
+                            <input type="text" id="ad-image" placeholder="https://example.com/image.jpg" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-button-text">Button Text</label>
+                            <input type="text" id="ad-button-text" placeholder="e.g., Learn More" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-button-link">Button Link</label>
+                            <input type="text" id="ad-button-link" placeholder="https://example.com" required>
+                        </div>
+                        <button type="submit" class="save-btn">Save Ad</button>
+                        <button type="button" class="cancel-btn" onclick="hideAdForm()">Cancel</button>
+                    </form>
+                </div>
+                
+                <div class="table-section">
+                    <table class="admin-table" id="ads-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Button Text</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ads-tbody">
+                            <!-- Ads will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Videos Tab -->
+            <div id="videos" class="admin-tab">
+                <div class="admin-header">
+                    <h1>Video Management</h1>
+                    <button class="add-btn" onclick="showVideoForm()">+ Add New Video</button>
+                </div>
+                
+                <div id="video-form" class="form-section" style="display: none;">
+                    <h2>Add/Edit Video</h2>
+                    <form onsubmit="saveVideo(event)">
+                        <div class="form-group">
+                            <label for="video-title">Video Title</label>
+                            <input type="text" id="video-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="video-url">YouTube URL</label>
+                            <input type="text" id="video-url" placeholder="https://www.youtube.com/watch?v=..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="video-description">Description</label>
+                            <textarea id="video-description" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="save-btn">Save Video</button>
+                        <button type="button" class="cancel-btn" onclick="hideVideoForm()">Cancel</button>
+                    </form>
+                </div>
+                
+                <div class="table-section">
+                    <table class="admin-table" id="videos-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>URL</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="videos-tbody">
+                            <!-- Videos will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Users Tab -->
+            <div id="users" class="admin-tab">
+                <div class="admin-header">
+                    <h1>User Management</h1>
+                </div>
+                
+                <div class="table-section">
+                    <table class="admin-table" id="users-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Joined</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-tbody">
+                            <!-- Users will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Settings Tab -->
+            <div id="settings" class="admin-tab">
+                <div class="admin-header">
+                    <h1>Admin Settings</h1>
+                </div>
+                
+                <form onsubmit="saveAdminSettings(event)">
+                    <div class="settings-group">
+                        <h2>Site Information</h2>
+                        <div class="form-group">
+                            <label for="site-name">Site Name</label>
+                            <input type="text" id="site-name" value="Urban Roots" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="site-email">Contact Email</label>
+                            <input type="email" id="site-email" value="info@urbanroots.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="site-phone">Contact Phone</label>
+                            <input type="tel" id="site-phone" value="+1 (555) 123-4567" required>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <h2>Theme Colors</h2>
+                        <div class="form-group">
+                            <label for="primary-color">Primary Color</label>
+                            <input type="color" id="primary-color" value="#006838" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="secondary-color">Secondary Color</label>
+                            <input type="color" id="secondary-color" value="#55833d" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="save-btn">Save Settings</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
